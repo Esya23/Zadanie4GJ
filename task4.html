@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PizzaMario - Меню</title>
+    <style>
+        /* Базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Шапка */
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.9;
+        }
+
+        /* Навигация */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Сетка пицц */
+        .pizza-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .pizza-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .pizza-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .pizza-image {
+            height: 200px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #e9ecef;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pizza-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .pizza-info {
+            padding: 1.5rem;
+        }
+
+        .pizza-title {
+            font-size: 1.3rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .pizza-description {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .pizza-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e53e3e;
+            margin-bottom: 1rem;
+        }
+
+        .order-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .order-btn:hover {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+            transform: translateY(-2px);
+        }
+
+        /* Секция акций */
+        .promo-section {
+            background: linear-gradient(135deg, #4fd1c7, #38b2ac);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .promo-title {
+font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Баннер шеф-повара */
+        .chef-banner {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .chef-photo {
+            width: 150px;
+            height: 150px;
+            background: #e9ecef;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .chef-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .chef-info {
+            flex: 1;
+        }
+
+        /* Галерея ресторана */
+        .gallery-section {
+            margin-bottom: 3rem;
+        }
+
+        .gallery-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #2d3748;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            height: 200px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px dashed #dee2e6;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Информация о доставке */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Футер */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .back-link {
+            color: #cbd5e0;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            border: 1px solid #cbd5e0;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+            border-color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Медиа-запросы для адаптивности */
+
+        /* Планшеты */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .pizza-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+            
+            .chef-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Мобильные устройства */
+        @media (max-width: 768px) {
+            .pizza-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav {
+                gap: 0.5rem;
+            }
+            
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .header {
+                padding: 1.5rem 1rem;
+                border-radius: 0 0 20px 20px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Маленькие мобильные */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .pizza-info {
+                padding: 1rem;
+            }
+            
+            .promo-section {
+                padding: 1.5rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chef-photo {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <h1>🍕 PizzaMario</h1>
+            <p>Настоящая итальянская пицца с доставкой за 30 минут!</p>
+            <div class="nav">
+                <button class="nav-btn">Пиццы</button>
+                <button class="nav-btn">Напитки</button>
+                <button class="nav-btn">Закуски</button>
+                <button class="nav-btn">Десерты</button>
+            </div>
+        </header>
+
+        <!-- Акция -->
+        <section class="promo-section">
+            <h2 class="promo-title">🎉 Скидка 20% на первый заказ!</h2>
+            <p>При заказе от 1000 рублей - бесплатная доставка</p>
+        </section>
+
+        <!-- Баннер шеф-повара -->
+        <section class="chef-banner">
+            <div class="chef-photo">
+               <img src="7.png" alt="шеф-повар"> 
+            </div>
+            <div class="chef-info">
+                <h3>Наш шеф-повар Марио</h3>
+                <p>Более 15 лет готовит самую вкусную пиццу по традиционным итальянским рецептам</p>
+            </div>
+        </section>
+
+        <!-- Меню пицц -->
+        <section class="pizza-grid">
+            <!-- Пицца 1 -->
+            <div class="pizza-card">
+                <div class="pizza-image">
+                    <img src="1.png" alt="Пицца Маргарита">
+                </div>
+                <div class="pizza-info">
+                    <h3 class="pizza-title">Маргарита</h3>
+                    <p class="pizza-description">Классическая пицца с томатным соусом, моцареллой и базиликом</p>
+                    <div class="pizza-price">450 ₽</div>
+                    <button class="order-btn">Добавить в корзину</button>
+                </div>
+            </div>
+
+            <!-- Пицца 2 -->
+            <div class="pizza-card">
+                <div class="pizza-image">
+                    <img src="2.png" alt="Пицца Пепперони">
+                </div>
+                <div class="pizza-info">
+                    <h3 class="pizza-title">Пепперони</h3>
+                    <p class="pizza-description">Острая салями, моцарелла и томатный соус</p>
+                    <div class="pizza-price">550 ₽</div>
+                    <button class="order-btn">Добавить в корзину</button>
+                </div>
+            </div>
+
+            <!-- Пицца 3 -->
+            <div class="pizza-card">
+                <div class="pizza-image">
+                    <img src="3.jpeg" alt="Пицца 4 Сыра">
+                </div>
+                <div class="pizza-info">
+                    <h3 class="pizza-title">4 Сыра</h3>
+                    <p class="pizza-description">Моцарелла, горгонзола, пармезан и рикотта</p>
+                    <div class="pizza-price">600 ₽</div>
+                    <button class="order-btn">Добавить в корзину</button>
+                </div>
+            </div>
+
+            <!-- Пицца 4 -->
+            <div class="pizza-card">
+                <div class="pizza-image">
+                    <img src="4.png" alt="Пицца Гавайская">
+                </div>
+                <div class="pizza-info">
+                    <h3 class="pizza-title">Гавайская</h3>
+                    <p class="pizza-description">Ветчина, ананасы, моцарелла и томатный соус</p>
+                    <div class="pizza-price">520 ₽</div>
+<button class="order-btn">Добавить в корзину</button>
+                </div>
+            </div>
+
+            <!-- Пицца 5 -->
+            <div class="pizza-card">
+                <div class="pizza-image">
+                    <img src="5.jpg" alt="Пицца Мясная">
+                </div>
+                <div class="pizza-info">
+                    <h3 class="pizza-title">Мясная</h3>
+                    <p class="pizza-description">Пепперони, ветчина, бекон, курица и моцарелла</p>
+                    <div class="pizza-price">650 ₽</div>
+                    <button class="order-btn">Добавить в корзину</button>
+                </div>
+            </div>
+
+            <!-- Пицца 6 -->
+            <div class="pizza-card">
+                <div class="pizza-image">
+                    <img src="6.webp" alt="Пицца Вегетарианская">
+                </div>
+                <div class="pizza-info">
+                    <h3 class="pizza-title">Вегетарианская</h3>
+                    <p class="pizza-description">Свежие овощи, грибы, оливки и моцарелла</p>
+                    <div class="pizza-price">480 ₽</div>
+                    <button class="order-btn">Добавить в корзину</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Галерея ресторана -->
+        <section class="gallery-section">
+            <h2 class="gallery-title">Наш ресторан</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="8.jpeg" alt="Барная стойка">
+                </div>
+                <div class="gallery-item">
+                    <img src="9.jpg" alt="Основной зал">
+                </div>
+                <div class="gallery-item">
+                    <img src="8.jpg" alt="Второй зал">
+                </div>
+                <div class="gallery-item">
+                    <img src="10.jpg" alt="Игровая зона">
+                </div>
+            </div>
+        </section>
+
+        <!-- Информация -->
+        <section class="info-grid">
+            <div class="info-card">
+                <div class="info-icon">🚴</div>
+                <h3>Быстрая доставка</h3>
+                <p>Доставим за 30 минут или пицца бесплатно!</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">⭐</div>
+                <h3>Свежие ингредиенты</h3>
+                <p>Используем только свежие продукты каждый день</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">🎁</div>
+                <h3>Акции каждый день</h3>
+                <p>Постоянные скидки и специальные предложения</p>
+            </div>
+        </section>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <p>🍕 PizzaMario - Лучшая пицца в городе!</p>
+            <p>⌚ Ежедневно с 10:00 до 23:00</p>
+            <p>📞 +7 (495) 123-45-67</p>
+            <a href="index.html" class="back-link">← Вернуться на главную</a>
+        </footer>
+    </div>
+</body>
+</html>
